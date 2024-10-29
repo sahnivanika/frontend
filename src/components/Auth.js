@@ -1,9 +1,13 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { useDispatch } from 'react-redux';
+import { authActions } from '../store';
+import { useNavigate } from 'react-router-dom';
 const Auth = () => {
   // State to handle the form inputs
+  const navigate =useNavigate()
+  const dispath = useDispatch();
   const [inputs, setInputs] = useState({
     name: "", email: "", password: ""
   });
@@ -20,24 +24,44 @@ const Auth = () => {
   };
 
   // Send request to login/signup
-  const sendRequest = async () => {
+  const sendRequest = async (type = "login") => {
     try {
-      const res = await axios.post("http://localhost:3000/api/user/login", {
+      const res = await axios.post(`http://localhost:5000/api/user/${type}`, {
+        name: inputs.name,
         email: inputs.email,
         password: inputs.password
       });
-      const data = await res.data;
-      return data;
+      // Check if the response exists and contains the data property
+      if (res && res.data) {
+        const data = res.data;
+        console.log(data);
+        return data;
+      } else {
+        // Handle the case where res is undefined or doesn't contain data
+        console.error("Response is not valid:", res);
+      }
     } catch (err) {
-      console.log(err);
+      console.error("Error during request:", err);
+      return null; // Return null in case of an error
     }
   };
+  
 
   // Handle form submission (can add actual logic here)
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs);
-    sendRequest();
+     if(isSignup){
+      sendRequest("signup").then((data)=>localStorage.setItem("userId",data.user._id))
+      .then(()=>dispath(authActions.login())).then(()=>navigate("/blogs"))
+      .then((data)=>console.log(data))
+     }else{
+      sendRequest()
+      .then((data)=>localStorage.setItem("userId",data.user._id))
+      .then(()=>dispath(authActions.login()))
+      .then(()=>navigate("/blogs"))
+      .then((data)=>console.log(data));
+     }
   };
 
   return (

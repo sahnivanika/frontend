@@ -5,7 +5,7 @@ import UserBlogs from './components/UserBlogs';
 import BlogDetail from './components/BlogDetail';
 import AddBlog from './components/AddBlog';
 import React from 'react';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 function App() {
@@ -19,6 +19,9 @@ function App() {
       </header>
       <main>
         <Routes>
+          {/* Add a default route for "/" */}
+          <Route path="/" element={<Navigate to="/auth" />} /> {/* Redirects "/" to "/auth" */}
+          
           <Route path="/auth" element={<Auth />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/add" element={<AddBlog />} />

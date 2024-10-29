@@ -1,29 +1,26 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux'; // Add this import
 import { AppBar, Button, Toolbar, Typography, Box, Tabs, Tab } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom'; // Import RouterLink from react-router-dom
-
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions } from '../store';
 const Header = () => {
-    const isLoggedIn = useSelector(state => state.isLoggedIn);
-    const [value, setValue] = useState(0);
-
-    return (
-        <AppBar position="sticky" sx={{ background: "green" }}>
+    const dispath = useDispatch();
+    const isLoggedIn = useSelector((state)=>state.isLoggedIn)
+    const [value,setValue] = useState();
+    return ( 
+        <AppBar position=" sticky" sx={{ background: "green" }}>
             <Toolbar>
                 <Typography variant="h4">BlogsApp</Typography>
-                {isLoggedIn && (
-                    <Box display="flex" marginLeft="auto" marginRight="auto">
-                        {/* Use component={RouterLink} for routing */}
-                        <Tabs value={value} onChange={(e, val) => setValue(val)}>
-                            <Tab component={RouterLink} to="/blogs" label="All Blogs" />
-                            <Tab component={RouterLink} to="/myBlogs" label="My Blogs" />
-                        </Tabs>
-                    </Box>
-                )}
+                    {isLoggedIn && <Box display="flex" marginLeft={'auto'} marginRight="auto">
+                    <Tabs textColor='inherit' value ={value} onChange={(e,val)=>setValue(val)} >
+                     <Tab LinkComponent = {Link} to = "/blogs" label = "All Blogs"/>   
+                     <Tab LinkComponent = {Link} to = "/myblogs" label ="My Blogs"/>
+                     <Tab LinkComponent = {Link} to = "/blogs/add" label ="Add Blogs"/>
+                    </Tabs>
+                    </Box>}
                 <Box display="flex" marginLeft="auto">
-                    <Button
-                        component={RouterLink}
-                        to="/auth"
+                   { !isLoggedIn && <><Button
+                    LinkComponent = {Link} to = "/auth"
                         variant="contained"
                         sx={{ margin: 1, borderRadius: 10 }}
                         color="warning"
@@ -31,23 +28,23 @@ const Header = () => {
                         Login
                     </Button>
                     <Button
-                        component={RouterLink}
-                        to="/auth"
+                    LinkComponent = {Link} to = "/auth"
                         variant="contained"
                         sx={{ margin: 1, borderRadius: 10 }}
                         color="warning"
                     >
                         Signup
-                    </Button>
+                    </Button></>}
                     {isLoggedIn && (
                         <Button
-                            variant="contained"
-                            sx={{ margin: 1, borderRadius: 10 }}
-                            color="warning"
-                        >
-                            Logout
-                        </Button>
-                    )}
+                        onClick={()=>dispath(authActions.logout())}
+                    LinkComponent = {Link} to = "/auth"
+                        variant="contained"
+                        sx={{ margin: 1, borderRadius: 10 }}
+                        color="warning"
+                    >
+                        logout
+                    </Button>)} 
                 </Box>
             </Toolbar>
         </AppBar>
