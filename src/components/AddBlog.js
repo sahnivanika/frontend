@@ -17,7 +17,7 @@ const AddBlog = () => {
       title:inputs.title,
       description:inputs.description,
       image:inputs.imageURL,
-      user:localStorage.getItem('userId')
+      user:localStorage.getItem("userId")
     }).catch(err=> console.log(err));
     const data = await res.data;
     return data

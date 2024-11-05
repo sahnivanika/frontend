@@ -3,7 +3,7 @@ import axios from 'axios';
 import Blog from './Blog'; // Ensure Blog component is properly imported
 
 const UserBlogs = () => {
-  const [user, setUser] = useState([]); // Initialize blogs as an empty array
+  const [user, setUser] = useState(null); // Initialize user state as null
   const id = localStorage.getItem("userId");
 
   const sendRequest = async () => {
@@ -17,21 +17,30 @@ const UserBlogs = () => {
   };
 
   useEffect(() => {
-    sendRequest().then((data) =>setUser(data.user) );
+    sendRequest().then((data) => {
+      if (data && data.user) {
+        setUser(data.user);
+      } else {
+        console.log("No user data found or no blogs available for this user.");
+        setUser(null); // Set user to null if no data
+      }
+    });
   }, []);
-console.log(user);
+  
+  console.log(user);
+
   return (
     <div>
     {" "}
-    {user && user.blogs &&
-    user.blogs.map((blog,index)=>(
-      <Blog key={index} // Unique key for mapped elements
-            title={blog.title}
-            description={blog.description}
-            imageURL={blog.image}
-            userName={user.name}
-          />
-        ))} 
+      {user && user.blogs && user.blogs.map((blog, index) => (
+        <Blog
+          key={index} // Unique key for mapped elements
+          title={blog.title}
+          description={blog.description}
+          imageURL={blog.image}
+          userName={user.name}
+        />
+      ))}
     </div>
   );
 };
