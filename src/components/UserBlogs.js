@@ -17,14 +17,8 @@ const UserBlogs = () => {
   };
 
   useEffect(() => {
-    sendRequest().then((data) => {
-      if (data && data.user) {
-        setUser(data.user);
-      } else {
-        console.log("No user data found or no blogs available for this user.");
-        setUser(null); // Set user to null if no data
-      }
-    });
+    sendRequest().then((data) => 
+      setUser(data.user));
   }, []);
   
   console.log(user);
@@ -33,8 +27,8 @@ const UserBlogs = () => {
     <div>
     {" "}
       {user && user.blogs && user.blogs.map((blog, index) => (
-        <Blog
-          key={index} // Unique key for mapped elements
+        <Blog key={index} // Unique key for mapped elements
+          isUser={true}
           title={blog.title}
           description={blog.description}
           imageURL={blog.image}

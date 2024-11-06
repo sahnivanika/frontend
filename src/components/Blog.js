@@ -1,8 +1,9 @@
 import { Avatar,Typography,Card,CardContent, CardHeader, CardMedia } from '@mui/material'
 import React from 'react'
 
-const Blog = ({title,description,imageURL,userName}) => {
-  return (
+const Blog = ({title,description,imageURL,userName,isUser}) => {
+   console.log(title,isUser) ;
+    return (
     <div>
     <Card sx={{ width:"40%",margin:'auto',mt:2,padding:2,boxShadow:"5px 5px 10px #ccc",":hover:":{
         boxShadow:"10px 10px 20px #ccc"
