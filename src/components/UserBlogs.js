@@ -8,7 +8,7 @@ const UserBlogs = () => {
 
   const sendRequest = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/blog/user/${id}`);
+      const res = await axios.get(`https://backend-a0y9.onrender.com/api/blog/user/${id}`);
       return res?.data; // Use optional chaining in case res is undefined
     } catch (err) {
       console.error("Error fetching user blogs:", err);
