@@ -4,7 +4,7 @@ import Blog from './Blog';
 const Blogs = () => {
    const [blogs,setBlogs]=useState();
   const sendRequest = async()=>{
-    const res = await axios.get("http://localhost:5000/api/blog").catch(err=>console.log(err));
+    const res = await axios.get("https://backend-a0y9.onrender.com/api/blog").catch(err=>console.log(err));
     const data = await res.data;
     return data;
   };
