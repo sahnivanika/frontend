@@ -25,13 +25,13 @@ const UserBlogs = () => {
 
   return (
     <div>
-    {" "}
       {user && user.blogs && user.blogs.map((blog, index) => (
-        <Blog key={index} // Unique key for mapped elements
+        <Blog
+          key={index} // Unique key for mapped elements
           isUser={true}
           title={blog.title}
           description={blog.description}
-          imageURL={blog.image}
+          imageURL={blog.image || undefined} // Pass only if image is provided
           userName={user.name}
         />
       ))}
