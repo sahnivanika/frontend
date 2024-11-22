@@ -1,5 +1,5 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store";
@@ -15,11 +15,6 @@ const Auth = () => {
   });
 
   const [isSignup, setIsSignup] = useState(false);
-  const [fadeIn, setFadeIn] = useState(false);
-
-  useEffect(() => {
-    setFadeIn(true); // Trigger fade-in animation on component load
-  }, []);
 
   const handleChange = (e) => {
     setInputs((prevState) => ({
@@ -76,11 +71,11 @@ const Auth = () => {
       alignItems="center"
       height="100vh"
       sx={{
-        background: "linear-gradient(to right, #11998e, #38ef7d)",
-        animation: fadeIn ? "fadeIn 1s ease-in" : "none",
-        "@keyframes fadeIn": {
-          from: { opacity: 0 },
-          to: { opacity: 1 },
+        background: "linear-gradient(45deg, #11998e, #38ef7d, #6dd5ed)",
+        animation: "backgroundPulse 10s infinite alternate",
+        "@keyframes backgroundPulse": {
+          from: { backgroundPosition: "0% 50%" },
+          to: { backgroundPosition: "100% 50%" },
         },
       }}
     >
@@ -91,27 +86,46 @@ const Auth = () => {
           flexDirection="column"
           alignItems="center"
           justifyContent="center"
-          boxShadow="0px 4px 20px rgba(0, 0, 0, 0.1)"
+          boxShadow="0px 10px 30px rgba(0, 0, 0, 0.2)"
           padding={4}
           margin="auto"
-          borderRadius={3}
+          borderRadius={5}
           sx={{
             backgroundColor: "white",
-            border: "4px solid black",
-            borderColor: "black",
-            transform: fadeIn ? "scale(1)" : "scale(0.9)",
-            transition: "transform 0.5s ease",
+            transform: "scale(1)",
+            transition: "all 0.3s ease-in-out",
+            "&:hover": {
+              transform: "scale(1.02)",
+              boxShadow: "0px 15px 40px rgba(0, 0, 0, 0.3)",
+            },
           }}
         >
+          {/* Add a decorative element */}
+          <Box
+            sx={{
+              width: 80,
+              height: 80,
+              backgroundImage: "url('https://via.placeholder.com/80')", // Replace with a logo or illustration
+              backgroundSize: "cover",
+              borderRadius: "50%",
+              marginBottom: 2,
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+            }}
+          ></Box>
+
           <Typography
             variant="h4"
             padding={2}
             textAlign="center"
             fontWeight="bold"
             color="text.primary"
+            sx={{
+              fontFamily: "'Poppins', sans-serif",
+            }}
           >
             {isSignup ? "Signup" : "Login"}
           </Typography>
+
           {isSignup && (
             <TextField
               name="name"
@@ -122,10 +136,13 @@ const Auth = () => {
               fullWidth
               variant="outlined"
               sx={{
-                transition: "transform 0.3s ease",
-                "&:focus-within": {
-                  transform: "scale(1.02)",
-                  boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",
+                "& .MuiOutlinedInput-root": {
+                  "&:hover fieldset": {
+                    borderColor: "#11998e",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#38ef7d",
+                  },
                 },
               }}
             />
@@ -139,10 +156,13 @@ const Auth = () => {
             fullWidth
             variant="outlined"
             sx={{
-              transition: "transform 0.3s ease",
-              "&:focus-within": {
-                transform: "scale(1.02)",
-                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",
+              "& .MuiOutlinedInput-root": {
+                "&:hover fieldset": {
+                  borderColor: "#11998e",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#38ef7d",
+                },
               },
             }}
           />
@@ -156,10 +176,13 @@ const Auth = () => {
             type="password"
             variant="outlined"
             sx={{
-              transition: "transform 0.3s ease",
-              "&:focus-within": {
-                transform: "scale(1.02)",
-                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",
+              "& .MuiOutlinedInput-root": {
+                "&:hover fieldset": {
+                  borderColor: "#11998e",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#38ef7d",
+                },
               },
             }}
           />
@@ -169,13 +192,14 @@ const Auth = () => {
             color="success"
             sx={{
               marginTop: 2,
-              borderRadius: 2,
+              borderRadius: 3,
               paddingX: 5,
-              transition: "transform 0.3s ease",
+              fontWeight: "bold",
               "&:hover": {
                 backgroundColor: "#38ef7d",
                 transform: "scale(1.05)",
               },
+              transition: "all 0.3s ease",
             }}
           >
             Submit
@@ -185,12 +209,12 @@ const Auth = () => {
             variant="text"
             sx={{
               marginTop: 1,
-              color: "primary.main",
-              transition: "transform 0.3s ease",
+              color: "#11998e",
+              fontWeight: "bold",
               "&:hover": {
-                color: "green",
-                transform: "scale(1.05)",
+                color: "#38ef7d",
               },
+              transition: "color 0.3s ease",
             }}
           >
             Change To {isSignup ? "Login" : "Signup"}
