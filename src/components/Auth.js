@@ -70,42 +70,16 @@ const Auth = () => {
       justifyContent="center"
       alignItems="center"
       height="100vh"
-      position="relative"
       sx={{
-        background: "linear-gradient(45deg, #11998e, #38ef7d)",
+        background: "linear-gradient(45deg, #11998e, #38ef7d, #6dd5ed)",
+        animation: "backgroundPulse 10s infinite alternate",
+        "@keyframes backgroundPulse": {
+          from: { backgroundPosition: "0% 50%" },
+          to: { backgroundPosition: "100% 50%" },
+        },
       }}
     >
-      {/* Top Banner */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          width: "100%",
-          height: "150px",
-          backgroundImage: "url('https://via.placeholder.com/1500x300')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          zIndex: 1,
-          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-        }}
-      ></Box>
-
-      {/* Left Image */}
-      <Box
-        sx={{
-          position: "absolute",
-          left: 0,
-          width: "300px",
-          height: "400px",
-          backgroundImage: "url('https://via.placeholder.com/300x400')",
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          zIndex: 2,
-          filter: "drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.2))",
-        }}
-      ></Box>
-
-      <form onSubmit={handleSubmit} style={{ zIndex: 3 }}>
+      <form onSubmit={handleSubmit}>
         <Box
           maxWidth={400}
           display="flex"
@@ -126,7 +100,19 @@ const Auth = () => {
             },
           }}
         >
-          {/* Form Header */}
+          {/* Add a decorative element */}
+          <Box
+            sx={{
+              width: 80,
+              height: 80,
+              backgroundImage: "url('https://via.placeholder.com/80')", // Replace with a logo or illustration
+              backgroundSize: "cover",
+              borderRadius: "50%",
+              marginBottom: 2,
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+            }}
+          ></Box>
+
           <Typography
             variant="h4"
             padding={2}
@@ -140,7 +126,6 @@ const Auth = () => {
             {isSignup ? "Signup" : "Login"}
           </Typography>
 
-          {/* Input Fields */}
           {isSignup && (
             <TextField
               name="name"
@@ -150,6 +135,16 @@ const Auth = () => {
               placeholder="Name"
               fullWidth
               variant="outlined"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "&:hover fieldset": {
+                    borderColor: "#11998e",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#38ef7d",
+                  },
+                },
+              }}
             />
           )}
           <TextField
@@ -160,6 +155,16 @@ const Auth = () => {
             placeholder="Email"
             fullWidth
             variant="outlined"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "&:hover fieldset": {
+                  borderColor: "#11998e",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#38ef7d",
+                },
+              },
+            }}
           />
           <TextField
             name="password"
@@ -170,9 +175,17 @@ const Auth = () => {
             fullWidth
             type="password"
             variant="outlined"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "&:hover fieldset": {
+                  borderColor: "#11998e",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#38ef7d",
+                },
+              },
+            }}
           />
-
-          {/* Buttons */}
           <Button
             type="submit"
             variant="contained"
