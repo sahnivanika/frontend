@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from '@mui/material'; 
+import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -23,7 +23,7 @@ const Auth = () => {
 
   const sendRequest = async (type = "login") => {
     try {
-      const res = await axios.post(https://backend-a0y9.onrender.com/api/user/${type}, {
+      const res = await axios.post(`https://backend-a0y9.onrender.com/api/user/${type}`, {
         name: inputs.name,
         email: inputs.email,
         password: inputs.password
@@ -152,3 +152,4 @@ const Auth = () => {
 };
 
 export default Auth;
+
